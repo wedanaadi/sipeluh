@@ -34,7 +34,7 @@
             break;
         
         default:
-            # code...
+            echo "404";
             break;
     }
 ?>

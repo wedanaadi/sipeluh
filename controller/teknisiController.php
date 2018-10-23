@@ -15,6 +15,12 @@ class teknisiController
         include('view/teknisi/view.php');
     }
 
+    public function create()
+    {
+        $idOtomatis = $this->model->selectMaxKode();
+        include("view/teknisi/view_add.php");
+    }
+
     function __destruct(){
     }
 }

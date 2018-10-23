@@ -35,8 +35,7 @@
             $teknisi = new teknisiController();
             if($page==="tambah")
             {
-                // $teknisi->create();
-                echo "tambah";
+                $teknisi->create();
             }
             else if($page==="ubah")
             {
