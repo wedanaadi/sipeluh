@@ -4,7 +4,7 @@
 
         public function selectAll()
         {
-            return $this->get('m_pelanggan','flag_status != 0');
+            return $this->get('m_pelanggan');
         }
 
         public function selectMaxKode()

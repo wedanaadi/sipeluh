@@ -39,14 +39,13 @@
             }
             else if($page==="ubah")
             {
-                // $id = $_GET['id'];
-                // $teknisi->edit($id);
-                echo "ubah";
+                $id = $_GET['id'];
+                $teknisi->edit($id);
             }
             else if($page==="delete")
             {
-                // $id = $_POST['id_pelanggan'];
-                // $teknisi->destroy($id);
+                $id = $_POST['id_teknisi'];
+                $teknisi->destroy($id);
             }
             else
             {
@@ -55,6 +54,35 @@
             }
             break;
         
+        case 'kategorikeluhan': 
+            include("controller/kategoriKeluhanController.php");
+            $katkel = new kategoriKeluhanController();
+            if($page==="tambah")
+            {
+                $katkel->create();
+            }
+            else if($page==="ubah")
+            {
+                $id = $_GET['id'];
+                $katkel->edit($id);
+            }
+            else if($page==="delete")
+            {
+                // $id = $_POST['id_teknisi'];
+                // $teknisi->destroy($id);
+            }
+            else
+            {
+                $katkel->index();
+            }
+            break;
+        
+        case 'user': 
+            include("controller/userController.php");
+            $user = new userController();
+            $user->index();
+            break;
+
         default:
             echo "oke";
             break;

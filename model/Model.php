@@ -30,6 +30,24 @@
             return $rows;
         }
 
+        public function db_query($sql)
+        {
+            $result = $this->connection->query($sql);
+            if ($result == false) 
+            {
+                return $this->connection->error;
+            } 
+            
+            $rows = array();
+            
+            while ($row = $result->fetch_assoc()) 
+            {
+                $rows[] = $row;
+            }
+            
+            return $rows;
+        }
+
         public function insert($table, $rows=null)
         {
             $sql   = "INSERT INTO $table";
