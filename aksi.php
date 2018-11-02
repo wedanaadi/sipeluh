@@ -86,7 +86,55 @@
 
                 $katkel->update($data,$id);
             }
+            break;
 
+        case 'user':
+            include("controller/userController.php");
+            $user = new userController();
+            if($type == 'tambah_karyawan')
+            {
+                $user->store("for_karyawan");
+            }
+            else
+            {
+                $id = $_POST['id'];
+                $user->update($id);
+            }
+            break;
+
+        case 'auth': 
+            include("controller/userController.php");
+            $user = new userController();
+            if($type == 'auth')
+            {
+                $user->auth();
+            }
+            else if($type == 'reg_already')
+            {
+                echo $user->cek_username_already($_POST['username']);
+            }
+            else if($type == 'add_pelanggan')
+            {
+                $user->userPelanggan();
+            }
+            break;
+
+        case 'keluhan':
+            include("controller/keluhanController.php");
+            $keluhan = new keluhanController();
+            if($type == 'tambah')
+            {
+                $keluhan->store();
+            }
+            else if($type == 'ubah')
+            {
+                $id = $_POST['id'];
+                $keluhan->update($id);
+            }
+            else if($type == 'manajemen')
+            {
+               $keluhan->getActiveTeknisi();
+            }
             break;
         
         default:

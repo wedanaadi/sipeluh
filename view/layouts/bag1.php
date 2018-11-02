@@ -27,7 +27,7 @@
       <div class="navbar-custom-menu">
         <ul class="nav nav-bar">
           <li>
-            <a href="logout.php" style="padding: 15px"><i class="fa fa-fw fa-power-off"></i> <span> Log Out</span></a>
+            <a href="view/logout.php" style="padding: 15px"><i class="fa fa-fw fa-power-off"></i> <span> Log Out</span></a>
           
           </li>
         </ul>
