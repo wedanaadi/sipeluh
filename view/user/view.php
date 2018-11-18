@@ -19,7 +19,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
+                        <?php
                             $i=1;
                             foreach ($user as $key => $row) {
                         ?>
@@ -64,8 +64,8 @@
             function(isConfirm) {
             if(isConfirm) {
                 let _data = {
-                    module: 'user', 
-                    type: 'hapus', 
+                    module: 'user',
+                    type: 'hapus',
                     id: id,
                 };
 
