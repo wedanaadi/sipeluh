@@ -95,6 +95,10 @@
             {
                 $user->store("for_karyawan");
             }
+            else if($type == 'hapus')
+            {
+                $user->delete();
+            }
             else
             {
                 $id = $_POST['id'];
@@ -134,6 +138,22 @@
             else if($type == 'manajemen')
             {
                $keluhan->getActiveTeknisi();
+            }
+            else if($type == 'manajemen_keluhan')
+            {
+                $keluhan->save_manajemen();
+            }
+            else if($type == 'update_status_teknisi')
+            {
+                $keluhan->update_teknisi();
+            }
+            else if($type == 'for_teknisi')
+            {
+                $keluhan->for_teknisi();
+            }
+            else if($type == 'for_keluhan_pending')
+            {
+                $keluhan->for_keluhan_pending();
             }
             break;
         

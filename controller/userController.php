@@ -183,5 +183,19 @@ class userController
         $_SESSION['login_hk'] = $result[0]['hak_akses'];
         echo json_encode(['aksi' => true, 'message' => 'Berhasil Terdaftar!', 'title' => 'Ye...', 'type' => 'success']);
     }
+
+    public function delete()
+    {
+        $id = $_POST['id'];
+        $execute = $this->model->update('m_user',['isAktif' => 0],"id='$id'");
+        if($execute == 'true')
+        {
+            echo json_encode(['aksi' => true, 'message' => 'Berhasil Mengubah', 'title' => 'Ye... Berhasil', 'type' => 'success']);
+        }
+        else
+        {
+            echo json_encode(['aksi' => false, 'message' => $execute, 'title' => 'Oops... Gagal', 'type' => 'error']);
+        }
+    }
 }
 ?>

@@ -50,7 +50,53 @@
         id = $(this).attr('id-K');
         if(!e.isDefaultPrevented())
         {
-            alert('delete '+id);
+            swal({
+            title: "Apakah Kamu Yakin?",
+            text: "Non Aktifkan User!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Ya",
+            cancelButtonText: "Batal",
+            closeOnConfirm: false,
+            closeOnCancel: false
+            },
+            function(isConfirm) {
+            if(isConfirm) {
+                let _data = {
+                    module: 'user', 
+                    type: 'hapus', 
+                    id: id,
+                };
+
+                $.ajax({
+                    url: "aksi.php",
+                    type: "POST",
+                    method: "POST",
+                    data: _data,
+                    success: function(data)
+                    {
+                        obj = JSON.parse(data);
+                        swal({
+                            title: obj.title,
+                            text: obj.message,
+                            type: obj.type,
+                            showConfirmButton: true
+                        }, function(){
+                                window.location.href = "<?php echo BASE_URL. '?m=user' ?>";
+                        });
+                    }
+                });
+            } else {
+                swal({
+                    title: "Dibatalkan!",
+                    text: "Aksi dibatalkan..",
+                    type: "error",
+                    showConfirmButton: false,
+                    timer: 1000
+                    });
+            }
+            });
         }
         return false;
     });

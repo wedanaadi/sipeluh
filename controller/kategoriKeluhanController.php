@@ -7,6 +7,11 @@ class kategoriKeluhanController
     public function __construct()
     {
         $this->model = new KategoriKeluhan();
+        session_start();
+        if(!isset($_SESSION['login_id']))
+        {
+            header("Location: index.php");
+        }
     }
 
     public function index()

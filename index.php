@@ -120,6 +120,10 @@
                 $id = $_GET['id'];
                 $keluhan->edit($id);
             }
+            else if($page == 'list')
+            {
+                $keluhan->listBy();
+            }
             else
             {
                 $keluhan->index();

@@ -6,6 +6,13 @@ class User extends Model
     {
         $sql = "SELECT m_user.*, nama_hak_akses FROM m_user ";
         $sql .= "INNER JOIN m_hak_akses ON(m_hak_akses.id = m_user.hak_akses)";
+        $sql .= " WHERE isAktif = '1'";
+        session_start();
+        if($_SESSION['login_hk'] == 1)
+        {
+            $id = $_SESSION['login_id'];
+            $sql .= " AND `m_user`.id != '$id'";
+        }
         return $this->db_query($sql);
     }
 

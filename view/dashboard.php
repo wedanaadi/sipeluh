@@ -34,7 +34,7 @@ include('view/layouts/bag1.php');
             <h3 class="box-title">Dashboard</h3>
         </div>
         <div class="box-body">
-        Hello, <?php echo $nama ?>
+        Hello, Selamat datang <?php echo $nama ?>
         </div>
     </div>
 </section>
