@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<?php 
+<?php
     include("view/layouts/css.php");
 ?>
 </head>
@@ -15,9 +15,9 @@
     <p class="login-box-msg">Daftar Anggota Baru</p>
     <hr style="margin-top: 0px">
 
-    <form class="form" action="" method="post" data-toggle="validator">
+    <form class="form" action="#" method="post" data-toggle="validator">
       <div class="form-group has-feedback for-username">
-        <input type="text" class="form-control user" name="username" placeholder="Username" required>
+        <input type="text" pattern=".*\S+.*" title="test" class="form-control user" name="username" placeholder="Username" required>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
         <span class="help-block hb-user with-errors"></span>
       </div>
@@ -27,18 +27,18 @@
         <span class="help-block with-errors"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control pass" name="password" placeholder="Password" required>
+        <input type="password" pattern=".*\S+.*" class="form-control pass" name="password" placeholder="Password" required>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         <span class="help-block with-errors"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control conpass" name="confirm" placeholder="Retype password" required>
+        <input type="password" pattern=".*\S+.*" class="form-control conpass" name="confirm" placeholder="Retype password" required>
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
         <span class="help-block with-errors"></span>
       </div>
       <div class="row">
         <div class="col-xs-8">
-          
+
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
@@ -122,7 +122,7 @@
             var conpass = $(this).val();
             if(pass != conpass)
             {
-                $("#error").fadeIn(1000, function(){   
+                $("#error").fadeIn(1000, function(){
                     $("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; password tidak sesuai!.</div>');
                     // $('input[name=confirm]').val('');
                     $('input[name=confirm]').focus();

@@ -12,6 +12,10 @@ class teknisiController
         {
             header("Location: index.php");
         }
+        if($_SESSION['login_hk'] != 1)
+        {
+          header("Location: index.php?m=403");
+        }
     }
 
     public function index()
@@ -26,7 +30,7 @@ class teknisiController
         include("view/teknisi/view_add.php");
     }
 
-    public function store($data)    
+    public function store($data)
     {
         $execute = $this->model->insertDB($data);
         if($execute == 'true')

@@ -20,6 +20,9 @@ else
         $data = $authentication->getTeknisiById($session_data['id_biodata']);
         $nama = $data['nama_teknisi'];
     }
+    elseif ($hak_akses == '4') {
+      $nama = "Pemilik";
+    }
     else
     {
         $nama = "Pelanggan";

@@ -54,7 +54,21 @@
     $("#form").on('submit',function(e){
         if(!e.isDefaultPrevented())
         {
-            $.ajax({
+            var nama = $("input[name=nama]").val().replace(/^\s+|\s+$/g, "").length;
+            var alamat = $("textarea[name=alamat]").val().replace(/^\s+|\s+$/g, "").length;
+            var telepon = $("input[name=telepon]").val().replace(/^\s+|\s+$/g, "").length;
+            if(!nama || !alamat || !telepon)
+            {
+              swal({
+                title: 'Oops..!',
+                text: 'form masih ada yang kosong',
+                type: 'error',
+                showConfirmButton: true
+              });
+            }
+            else
+            {
+              $.ajax({
                 url: "aksi.php",
                 type: "POST",
                 method: "POST",
@@ -63,17 +77,18 @@
                 data: new FormData($("form")[0]),
                 success: function(data)
                 {
-                    obj = JSON.parse(data);
-                    swal({
-                        title: obj.title,
-                        text: obj.message,
-                        type: obj.type,
-                        showConfirmButton: true
-                    }, function(){
-                        window.location.href = "<?php echo BASE_URL. '?m=pelanggan' ?>";
-                    });
+                  obj = JSON.parse(data);
+                  swal({
+                    title: obj.title,
+                    text: obj.message,
+                    type: obj.type,
+                    showConfirmButton: true
+                  }, function(){
+                    window.location.href = "<?php echo BASE_URL. '?m=pelanggan' ?>";
+                  });
                 }
-            });
+              });
+            }
         }
         return false;
     });

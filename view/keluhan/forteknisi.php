@@ -14,19 +14,21 @@
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Tanggal Tugas</th>
+                                <th>Tanggal</th>
+                                <th>Kategori</th>
                                 <th>Keluhan</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
+                            <?php
                                 $no = 1;
-                                foreach ($list_belum as $value) { 
+                                foreach ($list_belum as $value) {
                             ?>
                             <tr>
                                 <td width='20px'><?php echo $no; ?></td>
                                 <td width='130px'><?php echo $value['date']; ?></td>
+                                <td width='130px'><?php echo $value['kategori']; ?></td>
                                 <td><?php echo $value['nama_keluhan']; ?></td>
                                 <td width='20px' align="center">
                                     <input type="checkbox" name="aksi[]" id="checked" value="<?php echo $value['id'] ?>">
@@ -50,19 +52,21 @@
                        <thead>
                             <tr>
                                 <td>No.</td>
+                                <td>Kategori</td>
                                 <td>Keluhan</td>
                                 <td>Status</td>
                                 <td>Action</td>
                             </tr>
                        </thead>
                        <tbody>
-                            <?php 
+                            <?php
                                 $no = 1;
-                                foreach ($list_sudah as $value) { 
+                                foreach ($list_sudah as $value) {
                             if($value['status'] == 1){
                             ?>
                             <tr style="background:#00a65a; color:#fff">
                                 <td width='20px'><?php echo $no; ?></td>
+                                <td><?php echo $value['kategori']; ?></td>
                                 <td><?php echo $value['nama_keluhan']; ?></td>
                                 <td><?php echo $value['status'] == 1?'Selesai':'Pending' ?></td>
                                 <td width='20px' align="center">
@@ -74,16 +78,17 @@
                             ?>
                             <tr style="background:#f7bf66; color:#fff">
                                 <td width='20px'><?php echo $no; ?></td>
+                                <td><?php echo $value['kategori']; ?></td>
                                 <td><?php echo $value['nama_keluhan']; ?></td>
                                 <td><?php echo $value['status'] == 1?'Selesai':'Pending' ?></td>
                                 <td width='20px' align="center">
                                     <a href="" id-pk="<?php echo $value['id'] ?>" class="UbahStatus btn btn-success btn-xs"><span></span><i class="fa fa-check"></i></a>
                                 </td>
                             </tr>
-                            <?php 
+                            <?php
                             }
                             $no++; } ?>
-                       </tbody> 
+                       </tbody>
                     </table>
                 </div>
             </div>
@@ -163,13 +168,17 @@
             let pilihan = $('input[name="aksi[]"]:checked').map(function(){
                 return this.value;
             }).get();
-            
+
+            console.log(pilihan);
+
             var _data = {
-                module: 'keluhan', 
-                type: 'for_teknisi', 
+                module: 'keluhan',
+                type: 'for_teknisi',
                 id: pilihan,
                 tanggapi: $('select[name=aksiTugas]').val()
             };
+
+            console.log(_data);
 
             $.ajax({
                 url: "aksi.php",
@@ -211,8 +220,8 @@
             function(isConfirm) {
             if(isConfirm) {
                 let _data = {
-                    module: 'keluhan', 
-                    type: 'for_keluhan_pending', 
+                    module: 'keluhan',
+                    type: 'for_keluhan_pending',
                     id: id,
                 };
 

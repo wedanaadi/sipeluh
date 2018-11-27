@@ -18,7 +18,7 @@ class userController
 
     public function create()
     {
-        $hk_list = $this->model->getHakAkses("id != 3");
+        $hk_list = $this->model->getHakAkses("id != 3 AND id != 4");
         $teknisi = $this->model->getTeknisi();
         include("view/user/view_add.php");
     }
@@ -42,7 +42,7 @@ class userController
             {
                 echo json_encode(['aksi' => false, 'message' => 'Username Sudah digunakan!', 'title' => 'OOPS...', 'type' => 'error']);
             }
-            else 
+            else
             {
                 $id_already = $this->model->cek_idbiodata_teknisi($idBiodata);
                 if($id_already > 0)

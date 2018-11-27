@@ -24,6 +24,9 @@
                 $id = $_POST['id_pelanggan'];
                 $pelanggan->destroy($id);
             }
+            elseif ($page==='laporan') {
+                $pelanggan->cetak();
+            }
             else
             {
                 $pelanggan->index();
@@ -53,8 +56,8 @@
                 // echo "aa";
             }
             break;
-        
-        case 'kategorikeluhan': 
+
+        case 'kategorikeluhan':
             include("controller/kategoriKeluhanController.php");
             $katkel = new kategoriKeluhanController();
             if($page==="tambah")
@@ -76,8 +79,8 @@
                 $katkel->index();
             }
             break;
-        
-        case 'user': 
+
+        case 'user':
             include("controller/userController.php");
             $user = new userController();
             if($page==="tambah")
@@ -124,20 +127,28 @@
             {
                 $keluhan->listBy();
             }
+            elseif ($page == 'laporan')
+            {
+              $keluhan->cetak();
+            }
             else
             {
                 $keluhan->index();
             }
             break;
 
+          case '403':
+            include("view/403.php");
+            break;
+
         default:
-            if($modul != '' || $modul != null)
+            if($modul != '' or $modul != null )
             {
-                echo "404";
+              include("view/404.php");
             }
             else
             {
-                include("view/authentication.php");
+              include("view/authentication.php");
             }
             break;
     }

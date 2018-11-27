@@ -84,8 +84,8 @@ class keluhanController
 
     public function save_manajemen()
     {
-        
-        for ($i=0; $i < count($_POST['id']); $i++) { 
+
+        for ($i=0; $i < count($_POST['id']); $i++) {
             $data = [
                 'id_keluhan' => $_POST['id'][$i],
                 'id_teknisi' => $_POST['teknisi_id'],
@@ -120,18 +120,23 @@ class keluhanController
         $sql = "SELECT id_biodata FROM m_user WHERE id = '$id_user'";
         $result = $this->model->db_query($sql);
         $id_teknisi = $result[0]['id_biodata'];
-        $sql_list = "SELECT *, DATE_FORMAT(`tanggal_manajemen`, '%Y-%m-%d') AS 'date' FROM `t_keluhan_manajemen`
+        $sql_list = "SELECT `t_keluhan_manajemen`.*, DATE_FORMAT(`tanggal_manajemen`, '%Y-%m-%d') AS 'date',
+                    m_teknisi.`nama_teknisi`, `t_keluhan`.`nama_keluhan`, m_kategori_keluhan.`kategori`
+                    FROM `t_keluhan_manajemen`
                     INNER JOIN m_teknisi ON `m_teknisi`.`id` = `t_keluhan_manajemen`.`id_teknisi`
                     INNER JOIN t_keluhan ON `t_keluhan`.`id` = `t_keluhan_manajemen`.`id_keluhan`
+                    INNER JOIN m_kategori_keluhan ON m_kategori_keluhan.`id` = `t_keluhan`.`id_kategori`
                     WHERE `t_keluhan_manajemen`.`status` = '0' AND id_teknisi = '$id_teknisi'";
 
         $sql_list2 = "SELECT `t_keluhan_manajemen`.*, DATE_FORMAT(`tanggal_manajemen`, '%Y-%m-%d') AS 'date',
-                    m_teknisi.`nama_teknisi`, `t_keluhan`.`nama_keluhan` FROM `t_keluhan_manajemen`
+                    m_teknisi.`nama_teknisi`, `t_keluhan`.`nama_keluhan`, m_kategori_keluhan.`kategori`
+                    FROM `t_keluhan_manajemen`
                     INNER JOIN m_teknisi ON `m_teknisi`.`id` = `t_keluhan_manajemen`.`id_teknisi`
                     INNER JOIN t_keluhan ON `t_keluhan`.`id` = `t_keluhan_manajemen`.`id_keluhan`
+                    INNER JOIN m_kategori_keluhan ON m_kategori_keluhan.`id` = `t_keluhan`.`id_kategori`
                     WHERE `t_keluhan_manajemen`.`status` != '0' AND id_teknisi = '$id_teknisi'
                     ORDER BY `t_keluhan_manajemen`.`status` DESC";
-        
+
         $list_belum = $this->model->db_query($sql_list);
         $list_sudah = $this->model->db_query($sql_list2);
         include('view/keluhan/forteknisi.php');
@@ -139,11 +144,13 @@ class keluhanController
 
     public function for_teknisi()
     {
-        for ($i=0; $i < count($_POST['id']); $i++) 
-        { 
+      // print_r(count($_POST['id'])); exit();
+        for ($i=0; $i < count($_POST['id']); $i++)
+        {
             $id = $_POST['id'][$i];
             $status = $_POST['tanggapi'];
-            $execute = $this->model->update('t_keluhan_manajemen',['status' => $status],"id='$id'");
+            $sql = "UPDATE t_keluhan_manajemen SET status = '$status' WHERE id = '$id'";
+            $execute = $this->model->execute($sql);
         }
 
         if($execute == 'true')
@@ -168,6 +175,12 @@ class keluhanController
         {
             echo json_encode(['aksi' => false, 'message' => $execute, 'title' => 'Oops... Gagal', 'type' => 'error']);
         }
+    }
+
+    public function cetak()
+    {
+      $keluhan = $this->model->laporandata();
+      include('view/keluhan/laporan.php');
     }
 
     public function __destruct(){

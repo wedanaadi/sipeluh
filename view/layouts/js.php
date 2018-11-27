@@ -9,3 +9,15 @@
 <script src="assets/sweetalert/sweetalert.min.js"></script>
 <script src="assets/iCheck/icheck.min.js"></script>
 <script src="assets/js.cookie.js"></script>
+
+<script type="text/javascript">
+  var url = window.location;
+  $('uL.sidebar-menu a').filter(function() {
+     return this.href == url;
+  }).parent().addClass('active');
+
+  // for treeview
+  $('ul.treeview-menu a').filter(function() {
+       return this.href == url;
+  }).parentsUntil(".sidebar-menu > .treeview-menu").addClass('active');
+</script>

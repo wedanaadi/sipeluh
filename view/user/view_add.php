@@ -27,10 +27,10 @@
                     <label for="telepon" class="control-label">Hak Akses</label>
                     <select name="hk" id="hk" class="form-control" required style="width:100%">
                         <option value="" selected disabled>--- PILIH HAK AKSES ---</option>
-                    <?php 
+                    <?php
                         foreach ($hk_list as $r) {
                      ?>
-                        <option value="<?php echo $r['id'] ?>"><?php echo $r['nama_hak_akses'] ?></option>    
+                        <option value="<?php echo $r['id'] ?>"><?php echo $r['nama_hak_akses'] ?></option>
                      <?php
                         }
                      ?>
@@ -43,11 +43,11 @@
                         <label for="" class="control-label">Teknisi</label>
                         <select name="id_tek" id="id_tek" class="form-control" style="width:100%">
                         <option value="" selected disabled>Pilih Teknisi</option>
-                        <?php 
+                        <?php
                             foreach ($teknisi as $p) {
                         ?>
                             <option value="<?php echo $p['id'] ?>"><?php echo $p['nama_teknisi'] ?></option>
-                        <?php 
+                        <?php
                             }
                         ?>
                         </select>
@@ -85,29 +85,29 @@
     $('#form').on('submit',function(e){
         if(!e.isDefaultPrevented())
         {
-            $.ajax({
-                url: "aksi.php",
-                type: "POST",
-                method: "POST",
-                contentType: false,
-                processData: false,
-                data: new FormData($("form")[0]),
-                success: function(data)
+          $.ajax({
+            url: "aksi.php",
+            type: "POST",
+            method: "POST",
+            contentType: false,
+            processData: false,
+            data: new FormData($("form")[0]),
+            success: function(data)
+            {
+              obj = JSON.parse(data);
+              swal({
+                title: obj.title,
+                text: obj.message,
+                type: obj.type,
+                showConfirmButton: true
+              }, function(){
+                if(obj.aksi == true)
                 {
-                    obj = JSON.parse(data);
-                    swal({
-                        title: obj.title,
-                        text: obj.message,
-                        type: obj.type,
-                        showConfirmButton: true
-                    }, function(){
-                        if(obj.aksi == true)
-                        {
-                            window.location.href = "<?php echo BASE_URL. '?m=user' ?>";
-                        }
-                    });
+                  window.location.href = "<?php echo BASE_URL. '?m=user' ?>";
                 }
-            });
+              });
+            }
+          });
         }
         return false;
     });

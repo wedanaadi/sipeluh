@@ -32,26 +32,39 @@
     $('#form').on('submit',function(e){
         if(!e.isDefaultPrevented())
         {
-            $.ajax({
-                url: "aksi.php",
-                type: "POST",
-                method: "POST",
-                contentType: false,
-                processData: false,
-                data: new FormData($("form")[0]),
-                success: function(data)
-                {
-                    obj = JSON.parse(data);
-                    swal({
-                        title: obj.title,
-                        text: obj.message,
-                        type: obj.type,
-                        showConfirmButton: true
-                    }, function(){
-                        window.location.href = "<?php echo BASE_URL. '?m=kategorikeluhan' ?>";
-                    });
-                }
+          var kategori = $("input[name=kategori]").val().replace(/^\s+|\s+$/g, "").length;
+          if (!kategori)
+          {
+            swal({
+              title: 'Oops..!',
+              text: 'form masih ada yang kosong',
+              type: 'error',
+              showConfirmButton: true
             });
+          }
+          else 
+          {
+            $.ajax({
+              url: "aksi.php",
+              type: "POST",
+              method: "POST",
+              contentType: false,
+              processData: false,
+              data: new FormData($("form")[0]),
+              success: function(data)
+              {
+                obj = JSON.parse(data);
+                swal({
+                  title: obj.title,
+                  text: obj.message,
+                  type: obj.type,
+                  showConfirmButton: true
+                }, function(){
+                  window.location.href = "<?php echo BASE_URL. '?m=kategorikeluhan' ?>";
+                });
+              }
+            });
+          }
         }
         return false;
     });

@@ -12,10 +12,10 @@
                     <label for="pelanggan" class="control-label">Pelanggan</label>
                     <select name="pelanggan" id="pelanggan" class="form-control" required style="width:100%">
                         <option value="" selected disabled>--- PILIH PELANGGAN ---</option>
-                    <?php 
+                    <?php
                         foreach ($pelanggan as $r) {
                      ?>
-                        <option value="<?php echo $r['id'] ?>"><?php echo $r['nama'] ?></option>    
+                        <option value="<?php echo $r['id'] ?>"><?php echo $r['nama'] ?></option>
                      <?php
                         }
                      ?>
@@ -26,10 +26,10 @@
                     <label for="kategori" class="control-label">Kategori</label>
                     <select name="kategori" id="kategori" class="form-control" required style="width:100%">
                         <option value="" selected disabled>--- PILIH KATEGORI ---</option>
-                    <?php 
+                    <?php
                         foreach ($kategori as $r) {
                      ?>
-                        <option value="<?php echo $r['id'] ?>"><?php echo $r['kategori'] ?></option>    
+                        <option value="<?php echo $r['id'] ?>"><?php echo $r['kategori'] ?></option>
                      <?php
                         }
                      ?>
@@ -58,26 +58,39 @@
     $("#form").on('submit',function(e){
         if(!e.isDefaultPrevented())
         {
-            $.ajax({
-                url: "aksi.php",
-                type: "POST",
-                method: "POST",
-                contentType: false,
-                processData: false,
-                data: new FormData($("form")[0]),
-                success: function(data)
-                {
-                    obj = JSON.parse(data);
-                    swal({
-                        title: obj.title,
-                        text: obj.message,
-                        type: obj.type,
-                        showConfirmButton: true
-                    }, function(){
-                        window.location.href = "<?php echo BASE_URL. '?m=keluhan' ?>";
-                    });
-                }
+          var keluhan = $("textarea[name=keluhan]").val().replace(/^\s+|\s+$/g, "").length;
+          if(!keluhan)
+          {
+            swal({
+              title: 'Oops..!',
+              text: 'form masih ada yang kosong',
+              type: 'error',
+              showConfirmButton: true
             });
+          }
+          else
+          {
+            $.ajax({
+              url: "aksi.php",
+              type: "POST",
+              method: "POST",
+              contentType: false,
+              processData: false,
+              data: new FormData($("form")[0]),
+              success: function(data)
+              {
+                obj = JSON.parse(data);
+                swal({
+                  title: obj.title,
+                  text: obj.message,
+                  type: obj.type,
+                  showConfirmButton: true
+                }, function(){
+                  window.location.href = "<?php echo BASE_URL. '?m=keluhan' ?>";
+                });
+              }
+            });
+          }
         }
         return false;
     });

@@ -1,10 +1,10 @@
-<?php 
-    include("view/layouts/bag1.php"); 
+<?php
+    include("view/layouts/bag1.php");
     include("libraries/Fungsi.php");
     $Fungsi = new Fungsi();
 ?>
 <section class="content">
-    <div class="box box-info">
+    <div class="box box-success">
         <div class="box-header with-border text-center">
             <h3 class="box-title">Tambah Teknisi</h3>
         </div>
@@ -52,26 +52,41 @@
     $('#form').on('submit',function(e){
         if(!e.isDefaultPrevented())
         {
-            $.ajax({
-                url: "aksi.php",
-                type: "POST",
-                method: "POST",
-                contentType: false,
-                processData: false,
-                data: new FormData($("form")[0]),
-                success: function(data)
-                {
-                    obj = JSON.parse(data);
-                    swal({
-                        title: obj.title,
-                        text: obj.message,
-                        type: obj.type,
-                        showConfirmButton: true
-                    }, function(){
-                        window.location.href = "<?php echo BASE_URL. '?m=teknisi' ?>";
-                    });
-                }
+          var nama = $("input[name=nama]").val().replace(/^\s+|\s+$/g, "").length;
+          var alamat = $("textarea[name=alamat]").val().replace(/^\s+|\s+$/g, "").length;
+          var telepon = $("input[name=telepon]").val().replace(/^\s+|\s+$/g, "").length;
+          if(!nama || !alamat || !telepon)
+          {
+            swal({
+              title: 'Oops..!',
+              text: 'form masih ada yang kosong',
+              type: 'error',
+              showConfirmButton: true
             });
+          }
+          else
+          {
+            $.ajax({
+              url: "aksi.php",
+              type: "POST",
+              method: "POST",
+              contentType: false,
+              processData: false,
+              data: new FormData($("form")[0]),
+              success: function(data)
+              {
+                obj = JSON.parse(data);
+                swal({
+                  title: obj.title,
+                  text: obj.message,
+                  type: obj.type,
+                  showConfirmButton: true
+                }, function(){
+                  window.location.href = "<?php echo BASE_URL. '?m=teknisi' ?>";
+                });
+              }
+            });
+          }
         }
         return false;
     });

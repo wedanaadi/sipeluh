@@ -12,6 +12,10 @@ class kategoriKeluhanController
         {
             header("Location: index.php");
         }
+        if($_SESSION['login_hk'] != 1)
+        {
+          header("Location: index.php?m=403");
+        }
     }
 
     public function index()
